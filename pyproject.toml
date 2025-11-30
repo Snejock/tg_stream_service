@@ -1,0 +1,13 @@
+[project]
+name = "tg-stream-service"
+version = "0.1.0"
+description = "An asynchronous, modular Telegram bot framework based on Telethon"
+requires-python = ">=3.13"
+dependencies = [
+    "clickhouse-connect>=0.10.0",
+    "google-genai>=1.51.0",
+    "httpx[socks]>=0.28.1",
+    "pydantic>=2.12.4",
+    "pyyaml>=6.0.3",
+    "telethon>=1.42.0",
+]

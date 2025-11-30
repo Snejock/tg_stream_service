@@ -1,0 +1,26 @@
+telegram:
+  api_id: 123456
+  api_hash: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  session_name: ".sessions/my_session"
+
+  # Ключи — идентификаторы чатов: @username, числовые ID, приглашения и т.п.
+  # Значения — имя агента (строка или список)
+  chats:
+    "my_channel": ["log", "ai_responder_gemini_noir_style"]
+    "-1001234567890": "ai_responder_gemini_sweetheart_style"
+
+proxy:
+  host: "proxy_host_ip"
+  port: 0
+  user: "username"
+  password: "your_secret_password"
+
+google_ai_provider:
+  api_key: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+clickhouse:
+  host: "hostname or IP"
+  port: 8123
+  user: "username"
+  password: "your_secret_password"
+  secure: false  # true для HTTPS
