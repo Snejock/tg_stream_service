@@ -1,5 +1,5 @@
 ### tg-stream-service — асинхронный модульный Telegram-стример (RU)
-<img width="768" height="512" alt="ChatGPT Image Nov 26, 2025, 08_43_09 AM" src="https://github.com/user-attachments/assets/94faadf1-2a96-4b38-bd33-358a39513377" />
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/1fb799d2-12bd-4ba3-bdde-3f9c67cb61cc" />
 
 
 tg-stream-service — это лёгкий каркас на базе `Telethon` для получения сообщений из указанных чатов и последовательной обработки их набором подключаемых «агентов». Проект сфокусирован на простоте конфигурации (YAML), явной маршрутизации по чатам и расширяемости через реестр агентов.
