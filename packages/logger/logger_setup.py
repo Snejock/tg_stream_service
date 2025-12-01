@@ -9,7 +9,7 @@ DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
 _def_configured = False
 
 
-def logging_setup(log_file_path: str = "log/tg_stream_service.log", level: int = logging.INFO) -> logging.Logger:
+def logger_setup(log_file_path: str = "log/tg_stream_service.log", level: int = logging.INFO) -> logging.Logger:
     global _def_configured
     root_logger = logging.getLogger()
     if _def_configured:
