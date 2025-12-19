@@ -3,7 +3,7 @@ from datetime import datetime
 from telethon import events
 
 from packages.processors.BaseProcessor import BaseProcessor
-from packages.providers import ClickhouseProvider, GoogleAIProvider
+from packages.providers import ClickhouseProvider, GeminiAIProvider
 
 logger = logging.getLogger(__name__)
 
@@ -15,13 +15,13 @@ class GeminiAnalysisCHProcessor(BaseProcessor):
                  prompt: str,
                  source_system: str,
                  trg_table_name: str,
-                 ai_provider: GoogleAIProvider,
+                 gemini_provider: GeminiAIProvider,
                  ch_provider: ClickhouseProvider,
                  **kwargs
                  ):
         super().__init__(event)
         self.source_system = source_system
-        self.ai_provider = ai_provider
+        self.gemini_provider = gemini_provider
         self.ch_provider = ch_provider
         self.ai_model_name = ai_model_name
         self.trg_table_name = trg_table_name
@@ -40,7 +40,7 @@ class GeminiAnalysisCHProcessor(BaseProcessor):
         payload = f"{self.prompt} '{incoming_msg_txt}'"
 
         # Генерация ответа с помощью AI
-        self.ai_generated_txt = await self.ai_provider.generate_content(self.ai_model_name, payload)
+        self.ai_generated_txt = await self.gemini_provider.generate_content(self.ai_model_name, payload)
 
         if not self.ai_generated_txt:
             logger.warning(f"[{username}] AI generated text is empty")

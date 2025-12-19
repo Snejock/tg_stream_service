@@ -6,7 +6,7 @@ from google.genai import types
 logger = logging.getLogger(__name__)
 
 
-class GoogleAIProvider:
+class GeminiAIProvider:
     """
     Провайдер для генерации текста через Google AI Studio
     """
@@ -36,6 +36,6 @@ class GoogleAIProvider:
         except httpx.ProxyError:
             logger.exception("Proxy connection failed. Check IP/port and VPN/proxy availability")
             return ""
-        except Exception as e:
+        except Exception:
             logger.exception("Unexpected error while processing message")
             return ""
