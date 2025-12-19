@@ -7,7 +7,7 @@ from telethon.errors import RPCError
 
 from config.schema import AppConfig
 from packages.agents import agent_registry
-from packages.providers import ClickhouseProvider, GoogleAIProvider, TelegramProvider
+from packages.providers import ClickhouseProvider, GeminiAIProvider, TelegramProvider, GrokAIProvider
 
 logger = logging.getLogger(__name__)
 
@@ -30,30 +30,35 @@ class Application:
         )
 
         logger.debug("Initializing Providers...")
-        self.ai_provider = GoogleAIProvider(config=self.config)
+        self.gemini_provider = GeminiAIProvider(config=self.config)
+        self.grok_provider = GrokAIProvider(config=self.config)
         self.ch_provider = ClickhouseProvider(config=self.config)
         self.tg_provider = TelegramProvider(config=self.config, client=self.tg_client)
 
         self._setup_agents()
         logger.info("All components have been successfully initialized")
 
-    async def start(self):
+    async def main_process(self):
         logger.info("Launching the Clickhouse client...")
         await self.ch_provider.connect()
-
         logger.info("Launching the Telegram client...")
+
         try:
             await self.tg_client.start()
             logger.info("Telegram client launched")
             logger.info(f"Waiting for new posts in chats: {self.routing.keys()}")
             await self.tg_client.run_until_disconnected()
+
         except RPCError:
             logger.error(f"Telegram API error")
+        except asyncio.CancelledError:
+            logger.info("Application stopping...")
         except Exception:
             logger.exception(f"Unexpected error")
 
+
     def run(self):
-        asyncio.run(self.start())
+        asyncio.run(self.main_process())
 
     def _setup_agents(self):
         """
@@ -73,7 +78,8 @@ class Application:
 
                 agent_handler = partial(
                     agent_fn,
-                    ai_provider=self.ai_provider,
+                    gemini_provider=self.gemini_provider,
+                    grok_provider=self.grok_provider,
                     ch_provider=self.ch_provider,
                     tg_provider=self.tg_provider
                 )

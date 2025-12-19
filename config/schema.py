@@ -24,8 +24,12 @@ class ClickhouseConfig(BaseModel):
 class GoogleAIConfig(BaseModel):
     api_key: str
 
+class XAIConfig(BaseModel):
+    api_key: str
+
 class AppConfig(BaseModel):
     telegram: TelegramConfig
     proxy: ProxyConfig
     google_ai: GoogleAIConfig
+    x_ai: XAIConfig
     clickhouse: ClickhouseConfig
