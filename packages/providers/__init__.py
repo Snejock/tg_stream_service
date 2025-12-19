@@ -1,3 +1,4 @@
 from .ClickhouseProvider import ClickhouseProvider
-from .GoogleAIProvider import GoogleAIProvider
+from .GeminiAIProvider import GeminiAIProvider
+from .GrokAIProvider import GrokAIProvider
 from .TelegramProvider import TelegramProvider
