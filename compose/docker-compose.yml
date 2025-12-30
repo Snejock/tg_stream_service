@@ -1,20 +1,25 @@
-# Minimal Docker Compose setup for tg-stream-service
-# Usage:
-#   Build image: docker compose -f compose/docker-compose.yml build
-#   Run once:    docker compose -f compose/docker-compose.yml run --rm app
-#   Start:       docker compose -f compose/docker-compose.yml up
-#   Override cmd: docker compose -f compose/docker-compose.yml run --rm app python -m tg_stream_service
+name: tg-stream-service
 
 services:
-  app:
-    image: tg-stream-service:dev
+  tg-stream-service:
     build:
-      context: ..
+      context: ..                         # контекст — корень проекта (на уровень выше)
       dockerfile: compose/Dockerfile
-    # command: ["python", "-m", "tg_stream_service"]  # uncomment and edit when your module is ready
-    # volumes:
-    #   - ..:/app:delegated  # dev mount (optional)
-    # environment:
-    #   - EXAMPLE_VAR=value
+    container_name: tg-stream-service
+    restart: unless-stopped
+    networks:
+      - dwh-net
+    dns:
+      - 192.168.1.10
+    volumes:
+      - ../config/config.yml:/app/config/config.yml:ro
+      - ../.sessions/tg_stream_service.session:/app/.sessions/tg_stream_service.session
+      - ../log:/app/log
+    environment:
+      - PYTHONUNBUFFERED=1
+    init: true
+    command: ["python", "main.py"]
 
-# You can add other services (db, cache, etc.) here as needed.
+networks:
+  dwh-net:
+    external: true
