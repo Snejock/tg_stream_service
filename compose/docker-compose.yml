@@ -18,7 +18,7 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
     init: true
-    command: ["python", "main.py"]
+    command: ["python", "tg_stream_service.py"]
 
 networks:
   dwh-net:

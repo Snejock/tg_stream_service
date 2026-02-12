@@ -70,7 +70,7 @@ logging:
 
 #### Запуск
 ```bash
-python main.py
+python tg_stream_service.py
 ```
 При запуске:
 - инициализируется логирование (`log/tg_stream_service.log` + консоль),
